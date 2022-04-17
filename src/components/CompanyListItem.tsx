@@ -1,14 +1,20 @@
 import React from 'react'
+import { IconButton } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 import styled from 'styled-components'
 import { CompanyAbriged } from '../schema/validators'
+import { colors } from '../utils/colors'
 import { spacing } from '../utils/spacing'
 
 const Wrapper = styled.li`
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     padding: ${spacing.s8} ${spacing.s12};
     margin-bottom: ${spacing.s4};
+    border-radius: 5px;
+    background-color: ${colors.offWhite};
 `
 
 type CompanyListItemProps = {
@@ -18,7 +24,6 @@ type CompanyListItemProps = {
 
 export const CompanyListItem: React.FC<CompanyListItemProps> = ({ company, onCompanySelect }) => {
     const onCompanyClick = () => {
-        console.log(company)
         onCompanySelect(company)
     }
     return (
@@ -26,7 +31,9 @@ export const CompanyListItem: React.FC<CompanyListItemProps> = ({ company, onCom
             <p>
                 {company.symbol} - {company.name}
             </p>
-            <button onClick={onCompanyClick}>dodaj</button>
+            <IconButton onClick={onCompanyClick}>
+                <AddIcon />
+            </IconButton>
         </Wrapper>
     )
 }

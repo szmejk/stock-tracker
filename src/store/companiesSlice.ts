@@ -20,7 +20,7 @@ export const queryCompaniesThunk = createAsyncThunk<CompanyAbriged[], string>(
             const response = await queryCompanies(query)
             return response.bestMatches
         } catch (e: unknown) {
-            return rejectWithValue(e)
+            return rejectWithValue('error')
         }
     }
 )
@@ -39,7 +39,7 @@ export const companiesSlice = createSlice({
             state.error = false
             state.errorMessage = ''
         })
-        builder.addCase(queryCompaniesThunk.rejected, (state, { payload }) => {
+        builder.addCase(queryCompaniesThunk.rejected, state => {
             state.isLoading = false
             state.error = true
         })

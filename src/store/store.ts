@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { companiesReducer } from './companiesSlice'
+import { overviewReducer } from './overviewSlice'
 import { portfolioReducer } from './portfolioSlice'
 
-const reducer = { portfolioReducer, companiesReducer }
+const reducer = { portfolioReducer, companiesReducer, overviewReducer }
 
 export const store = configureStore({ reducer })
 

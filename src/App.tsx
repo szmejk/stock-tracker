@@ -1,13 +1,13 @@
 import React from 'react'
-import { PageWrapper } from './components/PageWrapper'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { CompanyOverview } from './views/CompanyOverview/CompanyOverview'
 import { Portfolio } from './views/Portfolio/Portfolio'
 
-function App() {
-    return (
-        <PageWrapper>
-            <Portfolio />
-        </PageWrapper>
-    )
-}
-
-export default App
+export const App: React.FC = () => (
+    <Router>
+        <Routes>
+            <Route path="/" element={<Portfolio />} />
+            <Route path="/overview/:companySymbol" element={<CompanyOverview />} />
+        </Routes>
+    </Router>
+)

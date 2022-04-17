@@ -1,28 +1,23 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { portfolioActions } from '../../store/portfolioSlice'
+import React, { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { CompanyTable } from '../../components/CompanyTable'
 import { RootState } from '../../store/store'
+import { breakpoints } from '../../utils/breakpoints'
+
+const CompaniesSectionWrapper = styled.div`
+    @media (min-width: ${breakpoints.lg}) {
+        flex: 1;
+    }
+`
 
 export const CompaniesSection = () => {
-    const dispatch = useDispatch()
     const portfolio = useSelector((state: RootState) => state.portfolioReducer.portfolio)
-    const onRemove = (symbol: string) => {
-        dispatch(portfolioActions.removeCompany(symbol))
-    }
-    useEffect(() => {
-        console.log(portfolio)
-    }, [portfolio])
+    const portfolioArray = useMemo(() => Object.values(portfolio), [portfolio])
 
     return (
-        <div>
-            {Object.values(portfolio).map(({ symbol, name }) => (
-                <div>
-                    <p>
-                        {symbol} - {name}
-                    </p>
-                    <button onClick={() => onRemove(symbol)}>usun</button>
-                </div>
-            ))}
-        </div>
+        <CompaniesSectionWrapper>
+            <CompanyTable rows={portfolioArray} />
+        </CompaniesSectionWrapper>
     )
 }

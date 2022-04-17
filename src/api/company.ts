@@ -1,5 +1,10 @@
 import axios from 'axios'
-import { CompanySearchResponse, companySearchResponseSchema } from '../schema/validators'
+import {
+    CompanyOveriew,
+    companyOveriewResponseSchema,
+    CompanySearchResponse,
+    companySearchResponseSchema,
+} from '../schema/validators'
 
 export const getCompanySearchEndpoint = (query: string) =>
     `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${
@@ -14,6 +19,11 @@ export const getCompanyOveriewEndpoint = (symbol: string) =>
 export const queryCompanies = async (query: string): Promise<CompanySearchResponse> => {
     const response = await axios.get(getCompanySearchEndpoint(query))
 
-    const parsed = companySearchResponseSchema.parse(response.data)
-    return parsed
+    return companySearchResponseSchema.parse(response.data)
+}
+
+export const getCompanyOverview = async (symbol: string): Promise<CompanyOveriew> => {
+    const response = await axios.get(getCompanyOveriewEndpoint(symbol))
+
+    return companyOveriewResponseSchema.parse(response.data)
 }
